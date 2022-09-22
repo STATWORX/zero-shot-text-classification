@@ -9,7 +9,7 @@ from utils import get_device
 # Get the device (CPU, GPU, Apple M1/2 aka MPS)
 # Ignoring MPS because this particular model contains some int64 ops that are not supported by the MPS backend yet :(
 # see https://github.com/pytorch/pytorch/issues/80784
-device = get_device(ignore_mps=True)
+device = get_device(ignore_mps=True, cuda_as_int=True)
 
 # Define a model from hugging face hub: https://huggingface.co/models
 model = 'MoritzLaurer/mDeBERTa-v3-base-mnli-xnli'
