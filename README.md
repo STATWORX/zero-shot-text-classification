@@ -1,1 +1,1 @@
-# zero-shot-text-classification
+# Zero Shot Text Classification
