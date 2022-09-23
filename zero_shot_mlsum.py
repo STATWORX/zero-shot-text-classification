@@ -82,7 +82,7 @@ template_de = 'Das Thema ist {}'
 
 # Take a random sample from test data
 data['test'] = data['test'].shuffle(seed=42)
-data['test'] = data['test'].select(range(10))
+data['test'] = data['test'].select(range(1000))
 
 # Apply the prediction function in batches to the dataset (test split)
 map_kwargs = {'p': pipe, 'candidates': topic_candidates, 'template': template_de}
