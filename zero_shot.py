@@ -88,8 +88,8 @@ def predict_batch(batch, candidates: list, top_k: int = 3, template: str = "Das 
 data = load_dataset('gnad10')
 
 # TODO: just for testing, remove later
-from datasets import DatasetDict
-data = DatasetDict({'train': load_dataset('gnad10', split='train'), 'test': load_dataset('gnad10', split='test[0:10]')})
+# from datasets import DatasetDict
+# data = DatasetDict({'train': load_dataset('gnad10', split='train'), 'test': load_dataset('gnad10', split='test[0:10]')})
 
 # Topic candidates are the labels already present in the dataset (meta data)
 topic_candidates = data['train'].features['label'].names
