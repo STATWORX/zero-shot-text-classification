@@ -1,5 +1,10 @@
 # Zero Shot Text Classification
 
+Some examples on how to apply zero-shot on text classification using the 🤗 transformers library.   
+
+`zero_shot_example.py` showcases some examples, while `zero_shot_gnad10.py` and `zero_shot_mlsum.py` applies the idea 
+on to German topic classification datasets. Performance evaluation can be found below. 
+
 ## Zero Shot Accuracy on Test Data
 
 | Dataset                                         | Accuracy @top 1 | Accuracy @top 3 |
