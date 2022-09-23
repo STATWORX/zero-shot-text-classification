@@ -122,9 +122,10 @@ results = pd.DataFrame({'template': template_de,
                        index=[0])
 
 # Prompt engineering / tuning with three different templates
-templates = ['Im Artikel geht es um {}',
-             'Der Text ist über {}',
-             'Thema: {}']
+templates = ['Im Artikel geht es um {}.',
+             'Der Text ist über {}.',
+             'In diesem geht es um {}.',
+             'Thema: {}.']
 
 # Run above process for all three templates
 for t in templates:
