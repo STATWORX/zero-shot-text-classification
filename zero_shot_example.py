@@ -28,3 +28,16 @@ print(f'Zero-shot prediction for: \n {prediction["sequence"]}')
 top_3 = zip(prediction['labels'][0:3], prediction['scores'][0:3])
 for label, score in top_3:
     print(f'{label} - {score:.2%}')
+
+
+# Some more examples?
+further_examples = ['Verbraucher halten sich wegen steigender Zinsen und Inflation beim Immobilienkauf zurück',
+                    '„Die bitteren Tränen der Petra von Kant“ von 1972 geschlechtsumgewandelt und neu verfilmt',
+                    'Eine 541 Millionen Jahre alte fossile Alge weist erstaunliche Ähnlichkeit zu noch heute existierenden Vertretern auf']
+
+for txt in further_examples:
+    prediction = pipe(txt, topics, hypothesis_template=template_de)
+    print(f'Zero-shot prediction for: \n {prediction["sequence"]}')
+    top_3 = zip(prediction['labels'][0:3], prediction['scores'][0:3])
+    for label, score in top_3:
+        print(f'{label} - {score:.2%}')

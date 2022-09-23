@@ -29,8 +29,10 @@ def prepare_pred_for_top_k(row):
     labels = row['pred_zs']['labels']
     scores = row['pred_zs']['scores']
 
-    scores_ordered = [scores[i] for i in labels]
-    labels_ordered = [labels[i] for i in labels]
+    idx_sorted = np.argsort(labels)
+
+    labels_ordered = [labels[i] for i in idx_sorted]
+    scores_ordered = [scores[i] for i in idx_sorted]
 
     return {'labels': labels_ordered, 'scores': scores_ordered}
 
@@ -75,12 +77,12 @@ model = 'MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7'
 pipe = pipeline(task='zero-shot-classification', model=model, tokenizer=model, device=device)
 
 # Topic candidates are the labels already present in the dataset
-topic_candidates = np.unique(data['test']['topic'])
+topic_candidates = np.sort(np.unique(data['test']['topic']))
 template_de = 'Das Thema ist {}'
 
 # Take a random sample from test data
 data['test'] = data['test'].shuffle(seed=42)
-data['test'] = data['test'].select(range(1000))
+data['test'] = data['test'].select(range(10))
 
 # Apply the prediction function in batches to the dataset (test split)
 map_kwargs = {'p': pipe, 'candidates': topic_candidates, 'template': template_de}
@@ -96,15 +98,14 @@ zs_accuracy = accuracy_score(y_true=actual_label, y_pred=pred_zs_label)
 print(f'Zero-shot accuracy with "{template_de}": {zs_accuracy:.2%}')
 
 # Calculate accuracy @top k
-#pred_zs_scores = data['test'].map(prepare_pred_for_top_k, remove_columns=data['test'].column_names)
-#pred_zs_scores = pred_zs_scores['scores']
-#all_labels = np.sort(np.unique(data['train']['label']))
-#zs_top_k_accuracy = top_k_accuracy_score(y_true=actual_label_int, y_score=pred_zs_scores, k=3, labels=all_labels)
-#print(f'Zero-shot accuracy @top 3 with "{template_de}": {zs_top_k_accuracy:.2%}')
+pred_zs_scores = data['test'].map(prepare_pred_for_top_k, remove_columns=data['test'].column_names)
+pred_zs_scores = pred_zs_scores['scores']
+zs_top_k_accuracy = top_k_accuracy_score(y_true=actual_label, y_score=pred_zs_scores, k=3, labels=topic_candidates)
+print(f'Zero-shot accuracy @top 3 with "{template_de}": {zs_top_k_accuracy:.2%}')
 
 results = pd.DataFrame({'template': template_de,
                         'accuracy': zs_accuracy,
-                        #'accuracy_top_3': zs_top_k_accuracy
+                        'accuracy_top_3': zs_top_k_accuracy
                         },
                        index=[0])
 
@@ -125,14 +126,14 @@ for t in templates:
     zs_accuracy = accuracy_score(y_true=actual_label, y_pred=pred_zs_label)
     print(f'Zero-shot accuracy with "{t}": {zs_accuracy:.2%}')
 
-    #pred_zs_scores = data_tmp['test'].map(prepare_pred_for_top_k, remove_columns=data_tmp['test'].column_names)
-    #pred_zs_scores = pred_zs_scores['scores']
-    #zs_top_k_accuracy = top_k_accuracy_score(y_true=actual_label_int, y_score=pred_zs_scores, k=3, labels=all_labels)
-    #print(f'Zero-shot accuracy @top 3 with "{t}": {zs_top_k_accuracy:.2%}')
+    pred_zs_scores = data_tmp['test'].map(prepare_pred_for_top_k, remove_columns=data_tmp['test'].column_names)
+    pred_zs_scores = pred_zs_scores['scores']
+    zs_top_k_accuracy = top_k_accuracy_score(y_true=actual_label, y_score=pred_zs_scores, k=3, labels=topic_candidates)
+    print(f'Zero-shot accuracy @top 3 with "{t}": {zs_top_k_accuracy:.2%}')
 
     results = results.append(pd.DataFrame({'template': t,
                                            'accuracy': zs_accuracy,
-                                           #'accuracy_top_3': zs_top_k_accuracy
+                                           'accuracy_top_3': zs_top_k_accuracy
                                            },
                                           index=[0]))
 
