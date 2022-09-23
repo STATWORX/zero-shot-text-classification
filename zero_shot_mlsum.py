@@ -90,9 +90,9 @@ data['test'] = data['test'].map(predict_batch, batched=True, batch_size=16, fn_k
 data.save_to_disk('data/mlsum_predicted')
 
 # Calculate accuracy
-actual_label_int = data['test']['topic']
-pred_zs_label_int = data['test']['pred_zs_label']
-zs_accuracy = accuracy_score(y_true=actual_label_int, y_pred=pred_zs_label_int)
+actual_label = data['test']['topic']
+pred_zs_label = data['test']['pred_zs_label']
+zs_accuracy = accuracy_score(y_true=actual_label, y_pred=pred_zs_label)
 print(f'Zero-shot accuracy with "{template_de}": {zs_accuracy:.2%}')
 
 # Calculate accuracy @top k
@@ -121,8 +121,8 @@ for t in templates:
     map_kwargs = {'p': pipe, 'candidates': topic_candidates, 'template': t}
     data_tmp['test'] = data_tmp['test'].map(predict_batch, batched=True, batch_size=16, fn_kwargs=map_kwargs)
 
-    pred_zs_label_int = data_tmp['test'].features['label'].str2int(data_tmp['test']['pred_zs_label'])
-    zs_accuracy = accuracy_score(y_true=actual_label_int, y_pred=pred_zs_label_int)
+    pred_zs_label = data['test']['pred_zs_label']
+    zs_accuracy = accuracy_score(y_true=actual_label, y_pred=pred_zs_label)
     print(f'Zero-shot accuracy with "{t}": {zs_accuracy:.2%}')
 
     #pred_zs_scores = data_tmp['test'].map(prepare_pred_for_top_k, remove_columns=data_tmp['test'].column_names)
