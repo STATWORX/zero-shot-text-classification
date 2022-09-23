@@ -4,6 +4,7 @@ from datasets import load_dataset
 from transformers import pipeline
 from sklearn.metrics import accuracy_score, top_k_accuracy_score
 from utils import get_device
+from datetime import datetime
 
 
 # Get the device (CPU, GPU, Apple M1/2 aka MPS)
@@ -145,5 +146,7 @@ for t in templates:
                                            'accuracy_top_3': zs_top_k_accuracy},
                                           index=[0]))
 
+    results['model'] = model
+
 results = results.reset_index(drop=True)
-results.to_pickle('results/prompt_tuning.pickle')
+results.to_pickle(f'results/{datetime.today().strftime("%Y-%m-%d")}_prompt_tuning.pickle')
