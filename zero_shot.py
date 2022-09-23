@@ -15,6 +15,7 @@ device = get_device(ignore_mps=True, cuda_as_int=True)
 # Define a model from hugging face hub: https://huggingface.co/models
 # model = 'MoritzLaurer/mDeBERTa-v3-base-mnli-xnli'
 model = 'MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7'
+model = 'Sahajtomar/German_Zeroshot'
 
 # Define a german hypothesis template and the potential candidates for entailment/contradiction
 template_de = 'Das Thema ist {}'
