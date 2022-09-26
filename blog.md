@@ -19,8 +19,8 @@ Though there are various definitions of [zero-shot learning][1], it can broadly 
 model solves a task it was not explicitly trained on before. 
 It is important to understand, that a “task” can be defined in a broader and narrower sense: For example, the [authors of 
 GPT-2 showed that a model trained on language generation can be applied to entirely new downstream tasks like machine 
-translation][2]. At the same time, it can also mean being able to recognize previously unseen categories in images as 
-shown in the OpenAI [CLIP paper][3].  
+translation][2]. At the same time, a narrower definition of task would be to recognize previously unseen categories in 
+images as shown in the OpenAI [CLIP paper][3].  
 
 But what all these approaches have in common is the idea of extrapolation of learned concepts beyond the training regime. 
 A powerful concept, because it disentangles the solvability of a task from the availability of (labeled) training data.
