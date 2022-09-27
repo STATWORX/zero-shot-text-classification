@@ -1,17 +1,19 @@
 # Zero-Shot Text Classification
 
-Text classification is one of the most common applications for natural language processing (NLP). It is the task of 
+Text classification is one of the most common applications of natural language processing (NLP). It is the task of 
 assigning a set of predefined categories to a text snippet. Depending on the type of problem, the text snippet could be 
-a sentence, a paragraph, or even a whole document. There are many potential real-world applications for text classification, 
-but among the most frequent ones are sentiment analysis, topic, intent, spam, and hate speech classification.
+a sentence, a paragraph, or even a whole document. There are many potential real-world applications for text 
+classification, but among the most common ones are sentiment analysis, topic modeling and intent, spam, and hate 
+speech detection.
 
 The standard approach to text classification is training a classifier in a supervised regime. To do so, one needs pairs 
-of text and associated categories (aka labels) from the domain of interest as training data. Then, any classifier (e.g., a neural network) 
-can learn a mapping function from the text to the most likely category. While this approach can work quite well for many 
-settings, its feasibility highly depends on the availability of those hand-labeled training pairs. 
+of text and associated categories (aka labels) from the domain of interest as training data. Then, any classifier 
+(e.g., a neural network) can learn a mapping function from the text to the most likely category. While this approach can 
+work quite well for many settings, its feasibility highly depends on the availability of those hand-labeled pairs of 
+training data.
 
-Though pre-trained language models like BERT can reduce the amount of data needed, it does not make it 
-obsolete altogether. For real-world applications, data availability remains therefore the biggest hurdle.
+Though pre-trained language models like BERT can reduce the amount of data needed, it does not make it obsolete 
+altogether. Therefore, for real-world applications, data availability remains the biggest hurdle. 
 
 
 ## Zero-Shot Learning
@@ -141,9 +143,10 @@ Web - 8.14%
 Inland - 6.91%
 ```
 
-The entire code can be found on GitHub as well. Besides the examples from above, you will find there also applications 
-of zero-shot text classifications on two labeled datasets including an evaluation of the accuracy. In addition, I added 
-some prompt-tuning by playing around with the hypothesis template.
+The entire code can be found on [GitHub](https://github.com/STATWORX/zero-shot-text-classification) as well. Besides the 
+examples from above, you will find there also applications of zero-shot text classifications on two labeled datasets 
+including an evaluation of the accuracy. In addition, I added some prompt-tuning by playing around with the hypothesis 
+template.
 
 ## Concluding Thoughts
 Zero-shot text classification offers a suitable approach when either training data is limited (or even non-existing) 
